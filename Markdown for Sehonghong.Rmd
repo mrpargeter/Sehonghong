@@ -1,0 +1,217 @@
+Sehonghong Data
+========================================================
+ID - tools ID
+Square: 2D at surface level that contains the data: Factors
+  - i12
+  - i13 (I13 is the same)
+  
+Level - depths below surface: oldest to youngest: Factors
+  - rfs: Oldest
+  - mos: Second Oldest
+  - bas: Third Oldest
+  - rf: second youngest
+  - barf: Youngest
+*Data missing between rf and barf due to missing box
+
+Unit - Features withing Level: Factors
+  - fireplace
+  - discard area
+  - patch of tools
+  *Names given my excavation - 
+
+Bag - arbitrary to know what actual bag the piece came from
+
+Flake Portion: How much of the piece was examined
+ - proximal: bottom part of the tool
+ - proximal but nearly complete
+ - medial: middle part of the tool
+ - distal: end part
+ - lateral: side part
+ - core: lump of rock that tools come from; Not a tool - remove
+ - complete
+ - core on flake: can be included with complete and proximal for continuous variable analyses
+ 
+L.max.: Maximum length
+L.tech.: Technical length
+W.mid.: Width at the middle of the tool
+T.mid.: Thickness at the middle of the tool
+T.bulb.: Thickness at the bulb
+P.w.: Platform width - tools that are complete and proximal; not for medial, distal
+P.t.:Platform thickness - tools that are complete and proximal; not for medial, distal
+EPA: Exterior Platform Angle (used to calculate only) - tools that are complete and proximal; not for medial, distal
+EPA Angle: Calculated angle  - tools that are complete and proximal; not for medial, distal
+  - some proximal will be blank due to size issue; therefore this will have to be its own dataset
+Length Profile: Curvature - measured by the height to the maximum curvature; for flakes only
+  - 0 is flat; blank, NA could not be recorded or didn't make sense
+Mass: Actual Mass; calculated in Step 1 for pieces that it was not measured
+
+Edge.Profile: Categorical Data
+ - Paralell
+ - Broken
+ - Other
+ - Converging
+ - Expanding
+ - Ovoid
+
+Rock: Rock Type:
+ - Chalcedony
+ - CCS general (fine grained rock)
+ - Chert
+ - Hornfels
+ - Dyke material
+ - Quartz
+ - Basaltic rock
+ - Tuff
+ - Sandstone
+ - Agate
+ - Siltstone/mudstone
+ - Baked Sandstone
+ - quartzite/silcrete
+ - NA/ blank (blank tranformed to quartzite in step 1)
+ 
+ P.morph.: platform morphology - only for tools with platforms:
+ - Narrow linear (D2)
+ - Crushed
+ - Oval/triangular (D3)
+ - Chapeau de gendarme (a french hat)
+ - Punctiform (D1)
+ - Lunate (D4)
+ - Quadrangular or wide trapezoidal (D5)
+ - Missing
+ - Broken/fissured
+ - blanks (lateral, medial, proximal); 792, 1439 are missing
+ 
+ P.prep.: relating to platform preparation -scars on the platform surface
+ - Faceted (bulb negatives are present)
+ - Other - (and blanks) - non-useful
+ - None (plain)
+ - Cortical
+ - Dihedral
+ - Reduced to an edge
+ - Absent (broken platform)
+ - Residual faceting (ridges, but no bulb negatives)
+
+P.prep.on.dorsal.: Platform preparation on dorsal side
+ - short hinged removals (A2)
+ - None (A1): Useful - no treatment
+ - small removals following scar ridges (A3)
+ - Other
+ - Lateral, point of impact more prominent (A4)
+
+P.abr.:Abrasion on the platform
+ - Slight
+ - None
+ - Other
+ - High
+ - Very High
+ - blanks: medial and lateral
+
+Cone: Bulb type
+ - Hertzian cone present
+ - Eraillure scar
+ - Sheared bulb
+ - Hertzian cone absent
+ - Hinged bulb
+ - None
+ - Crushed
+ - Lipped
+ - Soriano double impact point and missing bulb
+ 
+ Cort: amount of Cortex on flakes
+  - 0%
+  - 1-10%
+  - 11-40%
+  - 41-60%
+  - 61-90%
+  - 91-99%
+  - 100%
+
+Dorsal.scar.pattern: 
+ - Unidirectional-parallel A
+ - UnidirectioNAl-parallel B
+ - UnidirectioNAl-convergent
+ - Sub-centripetal
+ - Orthogonal/crossed
+ - Bidirectional/opposed
+ - Centripetal
+ - NA
+
+ 
+Frac.initiation.point: 
+  - Expressed and lateralized on the platform
+  - Expressed and centered on the platform
+  - Other
+  - Non-expressed
+  - NA
+  - blank [2 medial, 1397, other to be removed]
+
+Type:
+  - Other 
+  - B7
+  - B1
+  - B3
+  - B6
+  - A3
+  - A1
+  - A2
+  - B2
+  - Core mainteNAnce flake
+  - Plunging, no cortex
+  - B8
+  - B4
+  - B5
+  - B9
+  - C1
+  - B10
+  - C2
+  - blank: 2 medial, 4 to be removed
+
+Termination:
+  - Broken
+  - Bipolar
+  - Feather
+  - Plunge
+  - Hinge
+  - Axial
+  - Step
+  - Blank: 3 medial, 4 to be removed
+  
+Twisted: 
+ - no
+ - yes
+ - NA: 346
+ - blank: 4 to be removed
+
+Overarching question: Currently, 
+    RFS, MOS: Separate, transitional middle-stone-age --> later-stone-age layers; 
+    BAS (24,000 - 18,000): Earliest part of roberg
+    Missing Data: (14,900 - 14,150) *After 4000 year gap
+    RF(14,500 - 13,700) & BARF: last part of roberg and separated from BAS by missing unit
+    
+    Omitting RF and BARF for now, are RFS/MOS significantly different from BAS
+
+Phase 1: Mass calculations
+Calculate the mass for flakes that are missing
+Packages installed:
+- data.table
+-foreach
+
+Steps:
+ - Reads in the data - stored on hard -drive; ensure StringsAsFactors is False
+ - Created ID column
+ - Creates data frame of only complete and proximal flakes that are nearly complete 
+
+Phase 2: For complete flakes, determine distribution of continuous data by Level
+ - Once level is complete, examine by Unit by Level to determine if patterns exist
+    - general statistics, 
+    - Histograms or desity plots from ggplot
+    - box plots
+    - interlayer comparisons and significance tests
+    - cluster analysis of correlation of lengths and widths - looking for 2:1 cluster
+        - cluster by rock type as well
+    
+Phase 3: Platform analysis
+For continuous platform data - Pw, Pt, EPA.angle
+    - elongation ratio (Pw/Pt): cluster or other 
+    
+Phase 4: Categorical Data
